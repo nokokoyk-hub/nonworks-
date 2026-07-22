@@ -144,6 +144,14 @@
   .card .link{font-size:13px;font-weight:700;color:var(--text);display:inline-flex;align-items:center;gap:6px}
   .card .link .arrow{transition:transform .2s}
   .card:hover .link .arrow{transform:translateX(4px)}
+  .card .applink{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    margin-top:2px;padding:12px 18px;border-radius:2px;font-size:14px;font-weight:700;letter-spacing:.04em;
+    background:linear-gradient(180deg,#e4e8ee,#aeb6c2);color:#0b0b0d;
+    box-shadow:0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .15s,box-shadow .25s;
+  }
+  .card .applink:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.5)}
 
   .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
   @media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:32px}}
@@ -230,21 +238,21 @@
         <span class="tag">中学受験</span>
         <h3>お受験マネージャー</h3>
         <p>中学受験の復習を「忘却曲線」で管理。そろそろ復習すべき問題を自動でお知らせして、苦手を効率よく克服する復習管理アプリ。</p>
-        <a href="https://ojuken-manager.com/" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
+        <a href="https://ojuken-manager.com/" target="_blank" rel="noopener" class="applink">アプリを開く <span class="arrow">→</span></a>
       </div>
       <div class="card reveal">
         <div class="card-ico">🌱</div>
         <span class="tag">小学生の学習</span>
         <h3>まなびの木</h3>
         <p>学年の枠をこえて、教科ごとに自分のペースで進める無学年式の小学生向け学習アプリ。がんばるほど木が育つ、続けたくなる仕組み。</p>
-        <a href="https://manabinoki.net/" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
+        <a href="https://manabinoki.net/" target="_blank" rel="noopener" class="applink">アプリを開く <span class="arrow">→</span></a>
       </div>
       <div class="card reveal">
         <div class="card-ico">🫀</div>
         <span class="tag">AI / Utility</span>
         <h3>soul-backup</h3>
         <p>AIパートナーの人格・関係性・思い出をまるごと保存し、別のAIにも引き継げる移植キット。</p>
-        <a href="https://soul-backup.vercel.app" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
+        <a href="https://soul-backup.vercel.app" target="_blank" rel="noopener" class="applink">アプリを開く <span class="arrow">→</span></a>
       </div>
     </div>
   </div>
