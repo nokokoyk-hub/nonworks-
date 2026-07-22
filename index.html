@@ -329,11 +329,17 @@
   // お問い合わせフォーム（Formspree・AJAX送信）
   const cForm=document.getElementById('contactForm');
   const cStatus=document.getElementById('formStatus');
+  const cBtn=cForm.querySelector('button[type="submit"]');
   cForm.addEventListener('submit',async(e)=>{
     e.preventDefault();
+    if(cBtn.disabled)return; // 二重送信ガード
+    cBtn.disabled=true;const btnLabel=cBtn.textContent;cBtn.textContent='送信中…';
     cStatus.className='form-status sending';cStatus.textContent='送信中…';
     try{
-      const res=await fetch(cForm.action,{method:'POST',body:new FormData(cForm),headers:{Accept:'application/json'}});
+      const ctrl=new AbortController();
+      const timer=setTimeout(()=>ctrl.abort(),15000); // 15秒で諦めて案内を出す
+      const res=await fetch(cForm.action,{method:'POST',body:new FormData(cForm),headers:{Accept:'application/json'},signal:ctrl.signal});
+      clearTimeout(timer);
       if(res.ok){
         cStatus.className='form-status ok';
         cStatus.textContent='送信しました！お問い合わせありがとうございます。折り返しご連絡いたします。';
@@ -341,11 +347,13 @@
       }else{
         const d=await res.json().catch(()=>({}));
         cStatus.className='form-status err';
-        cStatus.textContent=(d.errors&&d.errors.map(x=>x.message).join(' '))||'送信に失敗しました。お手数ですが時間をおいて再度お試しください。';
+        cStatus.textContent=(d.errors&&d.errors.map(x=>x.message).join(' '))||'送信に失敗しました。お手数ですが、メール（nonworks.support@gmail.com）でもご連絡いただけます。';
       }
     }catch(_){
       cStatus.className='form-status err';
-      cStatus.textContent='通信エラーが発生しました。ネット環境をご確認のうえ再度お試しください。';
+      cStatus.textContent='通信エラーが発生しました。お手数ですが、再読み込みして再度お試しいただくか、メール（nonworks.support@gmail.com）にご連絡ください。';
+    }finally{
+      cBtn.disabled=false;cBtn.textContent=btnLabel;
     }
   });
 </script>
