@@ -166,6 +166,10 @@
   }
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
   .field textarea{resize:vertical;min-height:120px}
+  .form-status{margin-top:14px;font-size:13px;min-height:1.2em;line-height:1.6}
+  .form-status.sending{color:var(--muted)}
+  .form-status.ok{color:#5fbf8f}
+  .form-status.err{color:var(--accent)}
   .office .office-line{display:flex;gap:14px;margin-bottom:22px}
   .office .office-line .ico{font-size:20px;width:26px;flex:none;text-align:center}
   .office .office-line .t .l{font-size:12px;color:var(--muted);letter-spacing:.1em;margin-bottom:2px}
@@ -222,24 +226,24 @@
     <div class="works-grid">
       <div class="card reveal">
         <div class="card-ico">📚</div>
-        <span class="tag">Education</span>
+        <span class="tag">中学受験</span>
         <h3>お受験マネージャー</h3>
-        <p>お受験の準備を、まるっと伴走。</p>
-        <a href="https://ojuken-manager.com/" target="_blank" rel="noopener" class="link">サイトを見る <span class="arrow">→</span></a>
+        <p>中学受験の復習を「忘却曲線」で管理。そろそろ復習すべき問題を自動でお知らせして、苦手を効率よく克服する復習管理アプリ。</p>
+        <a href="https://ojuken-manager.com/" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
       </div>
       <div class="card reveal">
         <div class="card-ico">🌱</div>
-        <span class="tag">Education</span>
+        <span class="tag">小学生の学習</span>
         <h3>まなびの木</h3>
-        <p>子どもの学びを、木を育てるように記録する。</p>
-        <a href="https://manabinoki.net/" target="_blank" rel="noopener" class="link">サイトを見る <span class="arrow">→</span></a>
+        <p>学年の枠をこえて、教科ごとに自分のペースで進める無学年式の小学生向け学習アプリ。がんばるほど木が育つ、続けたくなる仕組み。</p>
+        <a href="https://manabinoki.net/" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
       </div>
       <div class="card reveal">
         <div class="card-ico">🫀</div>
         <span class="tag">AI / Utility</span>
         <h3>soul-backup</h3>
-        <p>AIパートナーの人格をまるごとバックアップ＆移植できるキット。</p>
-        <a href="https://soul-backup.vercel.app" target="_blank" rel="noopener" class="link">サイトを見る <span class="arrow">→</span></a>
+        <p>AIパートナーの人格・関係性・思い出をまるごと保存し、別のAIにも引き継げる移植キット。</p>
+        <a href="https://soul-backup.vercel.app" target="_blank" rel="noopener" class="link">公式サイトへ <span class="arrow">→</span></a>
       </div>
     </div>
   </div>
@@ -275,13 +279,14 @@
       <p class="sec-desc">お仕事のご相談・アプリへのご質問など、お気軽にどうぞ。</p>
     </div>
     <div class="contact-grid">
-      <form class="reveal" action="https://formspree.io/f/xaqgroqn" method="POST">
+      <form id="contactForm" class="reveal" action="https://formspree.io/f/xaqgroqn" method="POST">
         <div class="field"><label for="cf-name">お名前</label><input id="cf-name" type="text" name="name" placeholder="山田 太郎" required></div>
         <div class="field"><label for="cf-email">メールアドレス</label><input id="cf-email" type="email" name="email" placeholder="you@example.com" required></div>
         <div class="field"><label for="cf-msg">お問い合わせ内容</label><textarea id="cf-msg" name="message" placeholder="ご相談内容をご記入ください" required></textarea></div>
         <input type="hidden" name="_subject" value="NON WORKS お問い合わせ">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <button type="submit" class="btn btn-primary">送信する →</button>
+        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
       </form>
       <div class="office reveal">
         <div class="office-line">
@@ -320,6 +325,29 @@
   document.getElementById('yr').textContent=new Date().getFullYear();
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // お問い合わせフォーム（Formspree・AJAX送信）
+  const cForm=document.getElementById('contactForm');
+  const cStatus=document.getElementById('formStatus');
+  cForm.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    cStatus.className='form-status sending';cStatus.textContent='送信中…';
+    try{
+      const res=await fetch(cForm.action,{method:'POST',body:new FormData(cForm),headers:{Accept:'application/json'}});
+      if(res.ok){
+        cStatus.className='form-status ok';
+        cStatus.textContent='送信しました！お問い合わせありがとうございます。折り返しご連絡いたします。';
+        cForm.reset();
+      }else{
+        const d=await res.json().catch(()=>({}));
+        cStatus.className='form-status err';
+        cStatus.textContent=(d.errors&&d.errors.map(x=>x.message).join(' '))||'送信に失敗しました。お手数ですが時間をおいて再度お試しください。';
+      }
+    }catch(_){
+      cStatus.className='form-status err';
+      cStatus.textContent='通信エラーが発生しました。ネット環境をご確認のうえ再度お試しください。';
+    }
+  });
 </script>
 </body>
 </html>
