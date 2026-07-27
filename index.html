@@ -306,7 +306,7 @@
         </div>
         <div class="office-line">
           <div class="ico">✉️</div>
-          <div class="t"><div class="l">EMAIL</div><div class="d"><a href="mailto:nonworks.support@gmail.com">nonworks.support@gmail.com</a></div></div>
+          <div class="t"><div class="l">EMAIL</div><div class="d"><a href="mailto:info@nonworks.online">info@nonworks.online</a></div></div>
         </div>
         <div class="office-line">
           <div class="ico">🕒</div>
@@ -362,11 +362,11 @@
       }else{
         const d=await res.json().catch(()=>({}));
         cStatus.className='form-status err';
-        cStatus.textContent=(d.errors&&d.errors.map(x=>x.message).join(' '))||'送信に失敗しました。お手数ですが、メール（nonworks.support@gmail.com）でもご連絡いただけます。';
+        cStatus.textContent=(d.errors&&d.errors.map(x=>x.message).join(' '))||'送信に失敗しました。お手数ですが、メール（info@nonworks.online）でもご連絡いただけます。';
       }
     }catch(_){
       cStatus.className='form-status err';
-      cStatus.textContent='通信エラーが発生しました。お手数ですが、再読み込みして再度お試しいただくか、メール（nonworks.support@gmail.com）にご連絡ください。';
+      cStatus.textContent='通信エラーが発生しました。お手数ですが、再読み込みして再度お試しいただくか、メール（info@nonworks.online）にご連絡ください。';
     }finally{
       cBtn.disabled=false;cBtn.textContent=btnLabel;
     }
