@@ -1,0 +1,7 @@
+# Next.jsの生成物はビルド結果のバイト列を保持し、レビュー差分はソース側で行う。
+nordlys/_next/** binary
+nordlys/images/** binary
+nordlys/*.html -text
+nordlys/**/*.html -text
+nordlys/*.txt -text
+nordlys/**/*.txt -text

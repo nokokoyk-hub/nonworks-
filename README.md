@@ -14,6 +14,14 @@
 | お受験マネージャー | https://ojuken-manager.com/ |
 | まなびの木 | https://manabinoki.net/ |
 | soul-backup | https://soul-backup.vercel.app |
+| NORDLYS（架空のポートフォリオ作品） | https://nonworks.online/nordlys/ |
+
+## NORDLYS
+
+- 配信物: `nordlys/`
+- ソース: Next.js 16 / React 19 / GSAP
+- ビルド: ソース側で `npm run build` を実行し、生成された `out/` の中身を `nordlys/` へ配置
+- 公開注記: 架空施設のデモであり、予約フォームは情報を送信しない
 
 ## 編集メモ
 
