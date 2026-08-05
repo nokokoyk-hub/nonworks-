@@ -6,7 +6,7 @@
 
 1. `git status -sb` と現在ブランチを確認する
 2. `docs/current_state.md` と `docs/north_star.md` を読む
-3. Vercel Previewで公式トップと `/nordlys/` の両方を確認する
+3. PR #1のVercel Previewへログインできる環境で、公式トップと `/nordlys/` の両方を確認する
 4. のんの承認後にのみ `main` へ統合する
 
 ## NORDLYSの更新方法
@@ -26,3 +26,4 @@ NORDLYSはNext.jsの静的出力。ソース側で以下を行う。
 - NORDLYSは架空施設。フッターの `Fictional property — portfolio demonstration only.` を削除しない
 - 予約フォームはデモで、外部送信処理を追加していない
 - 公式トップのFormspreeフォームや法務ページは今回の変更対象外
+- Vercelのビルドチェックは成功済みだが、Preview Protectionにより未ログインブラウザでは実画面を開けない

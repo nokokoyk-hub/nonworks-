@@ -15,6 +15,8 @@
 - 追加: `nordlys/` の静的サイト一式
 - 変更: 公式トップのWORKSを2列化し、NORDLYSカードと `/nordlys/` 導線を追加
 - 安全表示: 架空施設・ポートフォリオ作品・予約情報を送信しないデモであることを明記
+- コミット: `2e54864 feat: NORDLYSサンプルサイトを追加`
+- ドラフトPR: `https://github.com/nokokoyk-hub/nonworks-/pull/1`
 
 ## 検証済み
 
@@ -24,9 +26,10 @@
 - 予約モーダルの入力から `REQUEST RECEIVED` まで
 - 公式トップから `/nordlys/` への遷移
 - ブラウザのエラー・警告・画像切れなし
+- Vercel Previewビルドチェック成功
 
 ## 未完了
 
-- GitHub上のVercel Preview確認
+- Vercel Previewの実画面確認（Preview Protectionによりログインが必要）
 - `main` への統合
 - 本番URLの公開後確認
