@@ -1,6 +1,6 @@
 # NON WORKS North Star
 
-最終更新: 2026-08-05 21:06 JST
+最終更新: 2026-08-05 21:35 JST
 
 ## 目的
 
@@ -16,6 +16,6 @@
 
 ## 次の北極星
 
-1. NORDLYSのVercel Previewを確認する
-2. 内容承認後に `main` へ統合し、`https://nonworks.online/nordlys/` を実機確認する
-3. 公開後も静的出力とNext.jsソースの対応関係を引き継ぐ
+1. NORDLYSのNext.jsソースをGitHub上の永続的な正本へ移し、静的出力との対応を明確にする
+2. NORDLYSからNON WORKS公式トップへ戻る明示的な導線を追加するか、デザイン方針として判断する
+3. Lighthouse、キーボード操作、スマホ実機を含む公開後の品質監査を行う
