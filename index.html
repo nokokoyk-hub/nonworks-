@@ -125,7 +125,8 @@
   .sec-desc{margin-top:16px;color:var(--muted);max-width:600px}
 
   #works{background:linear-gradient(180deg,var(--bg),var(--bg-2))}
-  .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .works-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+  @media(max-width:720px){.works-grid{grid-template-columns:1fr}}
   .card{
     position:relative;background:var(--panel);border:1px solid var(--line);border-radius:3px;
     padding:30px;overflow:hidden;transition:transform .25s,border-color .25s;
@@ -232,7 +233,7 @@
     <div class="sec-head reveal">
       <div class="sec-kicker">OUR WORKS</div>
       <h2 class="sec-title">工房から生まれた道具たち</h2>
-      <p class="sec-desc">「あったらいいな」を形にしたアプリ。どれも実際の暮らしの中から生まれています。</p>
+      <p class="sec-desc">「あったらいいな」を形にしたアプリとデザイン作品。どれも、使う人の時間を少し良くするために丁寧につくっています。</p>
     </div>
     <div class="works-grid">
       <div class="card reveal">
@@ -255,6 +256,13 @@
         <h3>soul-backup</h3>
         <p>AIパートナーの人格・関係性・思い出をまるごと保存し、別のAIにも引き継げる移植キット。</p>
         <a href="https://soul-backup.vercel.app" target="_blank" rel="noopener" class="applink">アプリを開く <span class="arrow">→</span></a>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">✦</div>
+        <span class="tag">Web Design / Concept</span>
+        <h3>NORDLYS</h3>
+        <p>静けさを旅に変える、架空の北欧リトリートサイト。アートディレクション、スクロール演出、レスポンシブ実装までを一貫制作したポートフォリオ作品です。</p>
+        <a href="/nordlys/" class="applink" aria-label="NORDLYSのサンプルサイトを見る">サイトを見る <span class="arrow">→</span></a>
       </div>
     </div>
   </div>
