@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /lumen/
+
+Host: https://nonworks.online
+Sitemap: https://nonworks.online/lumen/sitemap.xml
