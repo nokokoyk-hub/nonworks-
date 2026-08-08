@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-08 20:06 JST
+最終更新: 2026-08-08 20:14 JST
 
 ## 正本
 
@@ -18,19 +18,23 @@
 - 追加: `nordlys/` の静的サイト一式
 - 変更: 公式トップのWORKSを2列化し、NORDLYSカードと `/nordlys/` 導線を追加
 - 安全表示: 架空施設・ポートフォリオ作品・予約情報を送信しないデモであることを明記
+- LUMEN公開URL: `https://nonworks.online/lumen/`
+- LUMEN PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`（2026-08-08にSquash merge済み）
+- LUMEN本番コミット: `a73993b feat: LUMEN没入型サンプルサイトを公開 (#3)`
 
-## LUMEN Preview
+## LUMEN 公開実装
 
 - 作業ブランチ: `codex/lumen-preview`
-- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`
+- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`（Squash merge済み）
 - Preview URL: `https://nonworks-git-codex-lumen-preview-kannari-norikos-projects.vercel.app/lumen/`
+- Production URL: `https://nonworks.online/lumen/`
 - 公開物コミット: `996e5c9 feat: LUMENサンプルサイトをプレビュー用ブランチへ追加`
 - 最新コミット: `36020d3 feat: 公式トップへLUMEN紹介導線と音響改善を追加`
 - 追加: `lumen/` の静的サイト一式（33ファイル）
 - 除外: LUMENから参照されない旧NORDLYS画像13点
 - 変更: 公式トップのWORKSへLUMEN紹介カードと `/lumen/` 導線を追加
 - 音響: 55Hzの芯、110Hz・220Hzの可聴倍音、短い起動音、`AudioContext` running確認、コンプレッサー、停止フェード
-- 変更なし: `nordlys/`、法務ページ、問い合わせフォーム、`main`
+- 変更なし: `nordlys/`、法務ページ、問い合わせフォーム
 - 安全表示: 架空のデジタルアートミュージアムを題材にしたサンプルサイトであることを明記
 
 ## LUMEN Preview検証済み
@@ -47,6 +51,7 @@
 - WebGL canvas 1点の生成
 - モバイルの横方向のはみ出しなし
 - ブラウザログ: エラー・警告なし
+- PreviewとProductionのGit tree SHA一致: `a565e5a1fe8982f3b3eac28612a5f2dba45a1132`
 
 ## 本番検証済み
 
@@ -57,11 +62,17 @@
 - 予約モーダルの入力から `REQUEST RECEIVED` まで
 - 本番予約モーダルに `Demo form — no information will be sent.` を表示
 - 公式トップから `/nordlys/` への遷移
+- Vercel Production `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4`: READY、`nonworks.online` alias反映
+- 本番公式トップのLUMENカードと `/lumen/` への遷移
+- 本番LUMENのタイトル、H1、WebGL canvas 1点、SOUND OFF → ON
+- 本番1280×720で横方向のはみ出しなし
+- 本番LUMENのブラウザエラー・警告なし
 - 本番画像13点がHTTP 200
 - ブラウザのエラー・警告なし
 
 ## 次に行うこと
 
-- のんの実機音響受け入れとマージ承認は完了。PR #3をDraft解除して `main` へ統合する
-- 統合後に `https://nonworks.online/lumen/` をデスクトップ・モバイルで再検証する
+- iPhone Safari / Android Chrome / reduced-motion / 低GPU端末で追加確認する
+- Lighthouse、OGP、404、Sitemapの公開後監査を行う
+- LUMENとNORDLYSからNON WORKS公式トップへ戻る明示導線を追加するか判断する
 - Next.jsソースと `nordlys/`・`lumen/` の静的出力を同じ更新単位で管理する

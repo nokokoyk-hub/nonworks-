@@ -1,4 +1,4 @@
-# 2026-08-08 LUMEN Preview作業ダイジェスト
+# 2026-08-08 LUMEN Preview・本番公開ダイジェスト
 
 - 公式リポジトリ `nokokoyk-hub/nonworks-` の `main` から `codex/lumen-preview` を作成
 - LUMENのNext.js静的出力を `lumen/` 配下へ配置
@@ -8,6 +8,8 @@
 - 小型スピーカーで聞こえにくい48Hz中心の音響を、可聴倍音・起動音・running確認付きへ改善
 - 公式トップのWORKSへLUMEN紹介カードと `/lumen/` 導線を追加
 - のんが最新Previewを実スピーカーで試聴し、起動音とアンビエントを受け入れ確認。PR #3のマージを承認
+- PR #3をReady化してSquash mergeし、公式 `main` の `a73993b` として公開
+- Vercel Production READY、公式トップ → `/lumen/` → SOUND ON、WebGL、ブラウザログ0件を本番確認
 
 ## 検証結果
 
@@ -27,5 +29,9 @@
 - 公式トップ → `/lumen/` → SOUND ON: 成功
 - 公式トップ375×812横方向のはみ出し: なし
 - 実スピーカーの音量・聞こえ方: のんの受け入れ確認済み
-- 本番 `main`: 変更なし
+- 本番 `main`: `a73993b` へ更新済み
+- Production deployment: `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4` / READY
+- Production URL: `https://nonworks.online/lumen/`
+- Production 1280×720 / 公式トップ → LUMEN / SOUND ON / WebGL / error・warning 0件: 成功
+- PreviewとProductionのGit tree SHA一致: 成功（375×812検証済み成果物と同一）
 - version判定: 公式リポにVERSIONファイルはないため変更なし。公開履歴はchangelog追記候補で管理
