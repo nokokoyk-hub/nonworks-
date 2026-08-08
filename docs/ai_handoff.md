@@ -1,17 +1,17 @@
 # AI Handoff
 
-最終更新: 2026-08-08 20:06 JST
+最終更新: 2026-08-08 20:14 JST
 
 ## 次回の開始地点
 
 1. `git status -sb` と現在ブランチを確認する
-2. PR #3とVercel Previewの最新状態を確認する
+2. 公式 `main`、PR #3、Vercel Productionの最新状態を確認する
 3. `docs/current_state.md` と `docs/north_star.md` を読む
 4. LUMENを本番へ統合する場合は、`main` とPreviewブランチの差分を再確認する
 
 NORDLYSはPR #1で公開済み。本番コミットは `3db5129`。
 
-LUMENは `codex/lumen-preview`、Draft PR #3でPreview確認済み。最新コミットは `08f79f2`。サウンド改善と公式トップのLUMENカードまで反映済みで、のんの実スピーカー試聴・マージ承認も完了。まだ `main` へは統合していない。
+LUMENはPR #3をSquash mergeし、公式 `main` の `a73993b` として本番公開済み。Vercel ProductionはREADYで、公式トップのLUMENカード、`/lumen/`、WebGL、SOUND ON、ブラウザログ0件を確認した。
 
 ## LUMENの更新方法
 
@@ -30,6 +30,8 @@ LUMENはNext.jsの静的出力。ソース側で以下を行う。
 現時点のLUMEN Next.jsソースはローカル側のコミット `7af84ff` にあり、この公開リポジトリには静的出力だけが入っている。
 
 音響改善のソースコミットは `f252e4d`。実スピーカーの聞こえ方は自動検証できないため人間の試聴を受け入れ条件とし、2026-08-08にのんが最新Previewで起動音とアンビエントが聞こえることを確認済み。
+
+本番コミット `a73993b` と検証済みPreviewのGit tree SHAは一致する。ブラウザ接続ではProductionを1280×720で確認し、375×812は同一treeのPreview検証結果を継承。実機Mobile Safari / Android Chromeは未検証。
 
 ## NORDLYSの更新方法
 
@@ -51,3 +53,6 @@ NORDLYSはNext.jsの静的出力。ソース側で以下を行う。
 - 予約フォームはデモで、外部送信処理を追加していない
 - 公式トップのFormspreeフォームや法務ページは今回の変更対象外
 - 本番画像13点、公式トップからの導線、横方向のはみ出し、ブラウザエラーを2026-08-05に確認済み
+- LUMEN Production deployment: `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4`
+- LUMEN Production URL: `https://nonworks.online/lumen/`
+- LUMENから公式トップへ戻る明示導線は未実装
