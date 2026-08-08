@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-08 19:54 JST
+最終更新: 2026-08-08 20:06 JST
 
 ## 正本
 
@@ -42,6 +42,7 @@
 - INFOの架空サイト注記
 - SOUND OFF / ON切替
 - SOUND ONはAudioContextのrunning確認後のみ表示
+- のんが最新Previewを実スピーカーで試聴し、起動音とアンビエントが聞こえることを受け入れ確認
 - 公式トップのLUMENカードから `/lumen/` への遷移
 - WebGL canvas 1点の生成
 - モバイルの横方向のはみ出しなし
@@ -61,6 +62,6 @@
 
 ## 次に行うこと
 
-- のんが最新Previewで起動音とアンビエントを実際に確認後、PR #3をDraft解除して `main` へ統合する
+- のんの実機音響受け入れとマージ承認は完了。PR #3をDraft解除して `main` へ統合する
 - 統合後に `https://nonworks.online/lumen/` をデスクトップ・モバイルで再検証する
 - Next.jsソースと `nordlys/`・`lumen/` の静的出力を同じ更新単位で管理する
