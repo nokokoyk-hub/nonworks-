@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-05 21:35 JST
+最終更新: 2026-08-08 19:28 JST
 
 ## 正本
 
@@ -19,6 +19,29 @@
 - 変更: 公式トップのWORKSを2列化し、NORDLYSカードと `/nordlys/` 導線を追加
 - 安全表示: 架空施設・ポートフォリオ作品・予約情報を送信しないデモであることを明記
 
+## LUMEN Preview
+
+- 作業ブランチ: `codex/lumen-preview`
+- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`
+- Preview URL: `https://nonworks-git-codex-lumen-preview-kannari-norikos-projects.vercel.app/lumen/`
+- 公開物コミット: `996e5c9 feat: LUMENサンプルサイトをプレビュー用ブランチへ追加`
+- 追加: `lumen/` の静的サイト一式（33ファイル）
+- 除外: LUMENから参照されない旧NORDLYS画像13点
+- 変更なし: 公式トップ、`nordlys/`、法務ページ、問い合わせフォーム、`main`
+- 安全表示: 架空のデジタルアートミュージアムを題材にしたサンプルサイトであることを明記
+
+## LUMEN Preview検証済み
+
+- Vercel Previewデプロイ: `READY`
+- デスクトップ: 1265 × 720
+- モバイル: 375 × 812
+- INDEXの開閉と `03 ENTER THE WORD` への章移動
+- INFOの架空サイト注記
+- SOUND OFF / ON切替
+- WebGL canvas 1点の生成
+- モバイルの横方向のはみ出しなし
+- ブラウザログ: エラー・警告なし
+
 ## 本番検証済み
 
 - Next.js型チェック、Lint、静的ビルド
@@ -33,6 +56,7 @@
 
 ## 次に行うこと
 
-- Next.jsソースと `nordlys/` の静的出力を同じ更新単位で管理する
-- 現在ローカル管理のNext.jsソースを、GitHub上の永続的な正本へ移す方針を決める
-- 公開後の文言、画像、法務導線を変更した際は本番URLで再検証する
+- のんの確認後、PR #3をDraft解除して `main` へ統合する
+- 統合後に `https://nonworks.online/lumen/` をデスクトップ・モバイルで再検証する
+- 公式トップからLUMENへの導線は、作品カードのデザインを決めてから別差分で追加する
+- Next.jsソースと `nordlys/`・`lumen/` の静的出力を同じ更新単位で管理する
