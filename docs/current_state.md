@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-08 19:28 JST
+最終更新: 2026-08-08 19:54 JST
 
 ## 正本
 
@@ -25,9 +25,12 @@
 - Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`
 - Preview URL: `https://nonworks-git-codex-lumen-preview-kannari-norikos-projects.vercel.app/lumen/`
 - 公開物コミット: `996e5c9 feat: LUMENサンプルサイトをプレビュー用ブランチへ追加`
+- 最新コミット: `36020d3 feat: 公式トップへLUMEN紹介導線と音響改善を追加`
 - 追加: `lumen/` の静的サイト一式（33ファイル）
 - 除外: LUMENから参照されない旧NORDLYS画像13点
-- 変更なし: 公式トップ、`nordlys/`、法務ページ、問い合わせフォーム、`main`
+- 変更: 公式トップのWORKSへLUMEN紹介カードと `/lumen/` 導線を追加
+- 音響: 55Hzの芯、110Hz・220Hzの可聴倍音、短い起動音、`AudioContext` running確認、コンプレッサー、停止フェード
+- 変更なし: `nordlys/`、法務ページ、問い合わせフォーム、`main`
 - 安全表示: 架空のデジタルアートミュージアムを題材にしたサンプルサイトであることを明記
 
 ## LUMEN Preview検証済み
@@ -38,6 +41,8 @@
 - INDEXの開閉と `03 ENTER THE WORD` への章移動
 - INFOの架空サイト注記
 - SOUND OFF / ON切替
+- SOUND ONはAudioContextのrunning確認後のみ表示
+- 公式トップのLUMENカードから `/lumen/` への遷移
 - WebGL canvas 1点の生成
 - モバイルの横方向のはみ出しなし
 - ブラウザログ: エラー・警告なし
@@ -56,7 +61,6 @@
 
 ## 次に行うこと
 
-- のんの確認後、PR #3をDraft解除して `main` へ統合する
+- のんが最新Previewで起動音とアンビエントを実際に確認後、PR #3をDraft解除して `main` へ統合する
 - 統合後に `https://nonworks.online/lumen/` をデスクトップ・モバイルで再検証する
-- 公式トップからLUMENへの導線は、作品カードのデザインを決めてから別差分で追加する
 - Next.jsソースと `nordlys/`・`lumen/` の静的出力を同じ更新単位で管理する

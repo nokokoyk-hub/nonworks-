@@ -1,6 +1,6 @@
 # AI Handoff
 
-最終更新: 2026-08-08 19:28 JST
+最終更新: 2026-08-08 19:54 JST
 
 ## 次回の開始地点
 
@@ -11,7 +11,7 @@
 
 NORDLYSはPR #1で公開済み。本番コミットは `3db5129`。
 
-LUMENは `codex/lumen-preview`、Draft PR #3でPreview確認済み。公開物コミットは `996e5c9`。まだ `main` へは統合していない。
+LUMENは `codex/lumen-preview`、Draft PR #3でPreview確認済み。最新コミットは `36020d3`。サウンド改善と公式トップのLUMENカードまで反映済みで、まだ `main` へは統合していない。
 
 ## LUMENの更新方法
 
@@ -23,10 +23,13 @@ LUMENはNext.jsの静的出力。ソース側で以下を行う。
 4. `out/` からLUMENに必要なファイルをこのリポジトリの `lumen/` へ同期
 5. `lumen/images/nordlys/` は旧NORDLYSの未使用画像なので公開物へ含めない
 6. Vercel Previewの `/lumen/` でデスクトップ、モバイル、INDEX、INFO、SOUND、ブラウザログを確認
+7. 公式トップのLUMENカードから `/lumen/` へ遷移し、SOUND ONがAudioContext running確認後に表示されることを確認
 
 `basePath` と `assetPrefix` は `/lumen`。WebGLフォントの実URLは `/lumen/lumen/fonts/helvetiker_regular.typeface.json` なので、静的出力内の `lumen/lumen/` を誤って削除しない。
 
 現時点のLUMEN Next.jsソースはローカル側のコミット `7af84ff` にあり、この公開リポジトリには静的出力だけが入っている。
+
+音響改善のソースコミットは `f252e4d`。実スピーカーの聞こえ方は自動検証できないため、マージ前にのんが最新Previewで起動音とアンビエントを確認する。
 
 ## NORDLYSの更新方法
 
