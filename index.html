@@ -155,6 +155,29 @@
     transition:transform .15s,box-shadow .25s;
   }
   .card .applink:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.5)}
+  .card-featured{
+    grid-column:1/-1;display:grid;grid-template-columns:72px minmax(0,1fr) minmax(190px,220px);
+    align-items:center;gap:26px;
+    background:
+      radial-gradient(circle at 8% 50%,rgba(230,232,236,.08),transparent 28%),
+      linear-gradient(110deg,#121417 0%,#0d0f11 62%,#15181c 100%);
+  }
+  .card-featured .card-ico{width:72px;height:72px;margin:0;border-radius:50%;background:rgba(255,255,255,.025)}
+  .card-featured .card-ico svg{width:40px;height:40px;overflow:visible}
+  .card-featured .card-ico circle,.card-featured .card-ico path{vector-effect:non-scaling-stroke}
+  .card-featured .card-copy p{margin-bottom:0;max-width:720px}
+  .card-featured .applink{width:auto;min-width:190px;margin:0}
+  @media(max-width:900px){
+    .card-featured{grid-template-columns:64px minmax(0,1fr)}
+    .card-featured .card-ico{width:64px;height:64px}
+    .card-featured .applink{grid-column:1/-1;width:100%}
+  }
+  @media(max-width:720px){
+    .card-featured{grid-column:auto;grid-template-columns:1fr;gap:0}
+    .card-featured .card-ico{margin-bottom:20px}
+    .card-featured .card-copy p{margin-bottom:22px}
+    .card-featured .applink{grid-column:auto}
+  }
 
   .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
   @media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:32px}}
@@ -263,6 +286,22 @@
         <h3>NORDLYS</h3>
         <p>静けさを旅に変える、架空の北欧リトリートサイト。アートディレクション、スクロール演出、レスポンシブ実装までを一貫制作したポートフォリオ作品です。</p>
         <a href="/nordlys/" class="applink" aria-label="NORDLYSのサンプルサイトを見る">サイトを見る <span class="arrow">→</span></a>
+      </div>
+      <div class="card card-featured reveal">
+        <div class="card-ico" aria-hidden="true">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <circle cx="24" cy="24" r="16" stroke="#aeb6c2" stroke-width="1"/>
+            <circle cx="24" cy="24" r="8" stroke="#e6e8ec" stroke-width="1" opacity=".72"/>
+            <path d="M12 39 31 8" stroke="#e6e8ec" stroke-width="1.25" stroke-linecap="round"/>
+            <circle cx="31" cy="8" r="2" fill="#e8654f"/>
+          </svg>
+        </div>
+        <div class="card-copy">
+          <span class="tag">WebGL / Interactive Experience</span>
+          <h3>LUMEN</h3>
+          <p>光が形になり、鑑賞者の動きが空間を変える、架空のデジタルアートミュージアム。Three.jsによる光・粒子・立体文字とサウンドを一つのスクロール体験として設計しました。</p>
+        </div>
+        <a href="/lumen/" class="applink" aria-label="LUMENの没入型サンプルサイトを体験する">体験する <span class="arrow">→</span></a>
       </div>
     </div>
   </div>

@@ -1,0 +1,13 @@
+Helvetiker font data
+
+Source: Three.js r185 examples/fonts/helvetiker_regular.typeface.json
+Original font copyright: Copyright (c) 2004 by Magenta Ltd.
+Typeface conversion distributed by the Three.js project.
+
+Permission is granted to reproduce and distribute the software and the
+accompanying documentation for any purpose and without fee or royalty,
+provided that the copyright notices and this notice appear in all copies.
+The names of Magenta Ltd. and the authors may not be used in advertising or
+publicity without specific prior written permission.
+
+The software is provided "as is", without express or implied warranty.
