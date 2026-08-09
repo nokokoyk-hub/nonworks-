@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-09 17:01 JST
+最終更新: 2026-08-09 17:20 JST
 
 ## 正本
 
@@ -20,7 +20,9 @@
 - 安全表示: 架空施設・ポートフォリオ作品・予約情報を送信しないデモであることを明記
 - LUMEN公開URL: `https://nonworks.online/lumen/`
 - LUMEN PR: `https://github.com/nokokoyk-hub/nonworks-/pull/3`（2026-08-08にSquash merge済み）
-- LUMEN本番コミット: `a73993b feat: LUMEN没入型サンプルサイトを公開 (#3)`
+- LUMEN初回本番コミット: `a73993b feat: LUMEN没入型サンプルサイトを公開 (#3)`
+- LUMEN追加導線PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`（2026-08-09にSquash merge済み）
+- LUMEN最新本番コミット: `13ff9ea feat: LUMENに作品説明と公式導線を追加 (#5)`
 
 ## LUMEN 公開実装
 
@@ -53,10 +55,10 @@
 - ブラウザログ: エラー・警告なし
 - PreviewとProductionのGit tree SHA一致: `a565e5a1fe8982f3b3eac28612a5f2dba45a1132`
 
-## LUMEN 追加導線 Preview
+## LUMEN 追加導線 本番公開済み
 
 - 作業ブランチ: `codex/lumen-site-links-preview`
-- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`
+- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`（Ready化・Squash merge済み）
 - Preview URL: `https://nonworks-git-codex-lumen-site-l-cde76e-kannari-norikos-projects.vercel.app/lumen/`
 - 静的出力コミット: `e9311e4 feat: LUMENに作品説明と制作相談導線を追加`
 - Vercel deployment: `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK`、`READY`
@@ -65,7 +67,11 @@
 - 維持: 静的出力33ファイル、WebGL、INDEX、SOUND、NORDLYS、公式トップ本体、法務、問い合わせフォーム
 - Preview 1280×720: H1、WebGL canvas 1点、INFO、Information、公式トップ遷移、横はみ出し0、ブラウザログ0件
 - 375×812端末エミュレーション: Opening、全ヘッダー操作、INFO実クリック、Information 1カラム、CTA幅335px、横はみ出し0
-- 状態: 自動・ブラウザQA済み。のんの見た目受け入れ前のためDraft、`main` 未統合
+- のんがPreviewを受け入れ、PR #5の `main` 統合を承認
+- 本番コミット: `13ff9ea`
+- Production deployment: `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb`、`READY`、`nonworks.online` alias反映済み
+- 本番1280×720: WebGL canvas 1点、SOUND OFF、INFO、Information、公式トップ帰還、制作相談からお問い合わせ入力欄まで確認
+- 本番の横はみ出し0、ブラウザerror / warning 0件、Vercel直近1時間runtime error 0件
 
 ## 本番検証済み
 
@@ -83,10 +89,12 @@
 - 本番LUMENのブラウザエラー・警告なし
 - 本番画像13点がHTTP 200
 - ブラウザのエラー・警告なし
+- LUMEN追加導線のProduction `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb`: READY、`nonworks.online` alias反映
+- LUMENのINFO、Information、公式トップ帰還、制作相談からお問い合わせ入力欄まで動作確認
+- LUMEN追加導線公開後のブラウザエラー・警告なし、Vercel直近1時間runtime error 0件
 
 ## 次に行うこと
 
-- のんがDraft PR #5のPreviewを見たうえで、LUMEN追加導線を `main` へ統合するか判断する
 - iPhone Safari / Android Chrome / reduced-motion / 低GPU端末で追加確認する
 - Lighthouse、OGP、404、Sitemapの公開後監査を行う
 - NORDLYSからNON WORKS公式トップへ戻る明示導線を追加するか判断する
