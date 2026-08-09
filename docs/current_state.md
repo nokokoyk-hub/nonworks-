@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-08-08 20:14 JST
+最終更新: 2026-08-09 17:01 JST
 
 ## 正本
 
@@ -53,6 +53,20 @@
 - ブラウザログ: エラー・警告なし
 - PreviewとProductionのGit tree SHA一致: `a565e5a1fe8982f3b3eac28612a5f2dba45a1132`
 
+## LUMEN 追加導線 Preview
+
+- 作業ブランチ: `codex/lumen-site-links-preview`
+- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`
+- Preview URL: `https://nonworks-git-codex-lumen-site-l-cde76e-kannari-norikos-projects.vercel.app/lumen/`
+- 静的出力コミット: `e9311e4 feat: LUMENに作品説明と制作相談導線を追加`
+- Vercel deployment: `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK`、`READY`
+- GitHub Vercel status: success
+- 変更: ヘッダーの公式トップ帰還、INFOの作品概要・制作範囲、Informationの公式トップ・他作品・制作相談CTA
+- 維持: 静的出力33ファイル、WebGL、INDEX、SOUND、NORDLYS、公式トップ本体、法務、問い合わせフォーム
+- Preview 1280×720: H1、WebGL canvas 1点、INFO、Information、公式トップ遷移、横はみ出し0、ブラウザログ0件
+- 375×812端末エミュレーション: Opening、全ヘッダー操作、INFO実クリック、Information 1カラム、CTA幅335px、横はみ出し0
+- 状態: 自動・ブラウザQA済み。のんの見た目受け入れ前のためDraft、`main` 未統合
+
 ## 本番検証済み
 
 - Next.js型チェック、Lint、静的ビルド
@@ -72,7 +86,8 @@
 
 ## 次に行うこと
 
+- のんがDraft PR #5のPreviewを見たうえで、LUMEN追加導線を `main` へ統合するか判断する
 - iPhone Safari / Android Chrome / reduced-motion / 低GPU端末で追加確認する
 - Lighthouse、OGP、404、Sitemapの公開後監査を行う
-- LUMENとNORDLYSからNON WORKS公式トップへ戻る明示導線を追加するか判断する
+- NORDLYSからNON WORKS公式トップへ戻る明示導線を追加するか判断する
 - Next.jsソースと `nordlys/`・`lumen/` の静的出力を同じ更新単位で管理する
