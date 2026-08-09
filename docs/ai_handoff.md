@@ -1,17 +1,17 @@
 # AI Handoff
 
-最終更新: 2026-08-09 17:01 JST
+最終更新: 2026-08-09 17:20 JST
 
 ## 次回の開始地点
 
 1. `git status -sb` と現在ブランチを確認する
-2. 公式 `main`、Draft PR #5、追加導線Vercel Previewの最新状態を確認する
+2. 公式 `main`、PR #5、最新Vercel Productionの状態を確認する
 3. `docs/current_state.md` と `docs/north_star.md` を読む
-4. LUMEN追加導線を本番へ統合する場合は、`main` と `codex/lumen-site-links-preview` の差分を再確認する
+4. LUMENを更新する場合は、`main` と新しい `codex/` 作業ブランチの差分を再確認する
 
 NORDLYSはPR #1で公開済み。本番コミットは `3db5129`。
 
-LUMENはPR #3をSquash mergeし、公式 `main` の `a73993b` として本番公開済み。Vercel ProductionはREADYで、公式トップのLUMENカード、`/lumen/`、WebGL、SOUND ON、ブラウザログ0件を確認した。
+LUMENはPR #3で初回公開後、作品説明・公式帰還・制作相談導線をPR #5でSquash mergeし、公式 `main` の `13ff9ea` として本番公開済み。最新Vercel ProductionはREADYで、WebGL、SOUND、INFO、Information、公式トップ帰還、制作相談からお問い合わせ入力欄まで確認した。
 
 ## LUMENの更新方法
 
@@ -31,7 +31,7 @@ LUMENはNext.jsの静的出力。ソース側で以下を行う。
 
 音響改善のソースコミットは `f252e4d`。実スピーカーの聞こえ方は自動検証できないため人間の試聴を受け入れ条件とし、2026-08-08にのんが最新Previewで起動音とアンビエントが聞こえることを確認済み。
 
-本番コミット `a73993b` と検証済みPreviewのGit tree SHAは一致する。ブラウザ接続ではProductionを1280×720で確認し、375×812は同一treeのPreview検証結果を継承。実機Mobile Safari / Android Chromeは未検証。
+初回本番コミット `a73993b` と初回検証済みPreviewのGit tree SHAは一致する。追加導線はPR #5のPreviewを375×812、Productionを1280×720で確認。実機Mobile Safari / Android Chromeは未検証。
 
 ## NORDLYSの更新方法
 
@@ -55,15 +55,18 @@ NORDLYSはNext.jsの静的出力。ソース側で以下を行う。
 - 本番画像13点、公式トップからの導線、横方向のはみ出し、ブラウザエラーを2026-08-05に確認済み
 - LUMEN Production deployment: `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4`
 - LUMEN Production URL: `https://nonworks.online/lumen/`
-- LUMEN追加導線は公式リポ `e9311e4`、Draft PR #5、Vercel deployment `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK` でPreview済み
-- LUMENから公式トップ、他作品、制作相談へ進む導線はPR #5で実装済み。ただし、のんの見た目受け入れ前のため `main` 未統合
+- LUMEN追加導線は公式リポ `e9311e4`、PR #5、Vercel Preview `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK` で検証済み
+- のんの受け入れ後にPR #5をReady化・Squash mergeし、`13ff9ea` として本番公開済み
+- Production `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb` はREADY。本番ブラウザログ0件、Vercel直近1時間runtime error 0件
 
-## LUMEN 追加導線の受け入れ状況
+## LUMEN 追加導線の本番状況
 
 - ブランチ: `codex/lumen-site-links-preview`
-- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`
+- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`（Squash merge済み）
 - Preview: `https://nonworks-git-codex-lumen-site-l-cde76e-kannari-norikos-projects.vercel.app/lumen/`
 - Vercel: READY、GitHub status success
 - 1280×720: Opening、INFO、Information、公式トップ遷移、WebGL canvas 1点、横はみ出し0、ブラウザログ0件
 - 375×812: ヘッダー全操作、INFO実クリック、Information 1カラム、CTA幅335px、横はみ出し0
-- 次の操作: のんがPreviewを確認し、問題なければPRをReady化してSquash merge。本番反映後にProductionを再検証する
+- 本番コミット: `13ff9ea`
+- Production: `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb`、READY、`nonworks.online` alias反映済み
+- 次の候補: 実機Mobile Safari / Android Chrome / reduced-motion / 低GPU端末とLighthouseを追加確認する
