@@ -1,13 +1,13 @@
 # AI Handoff
 
-最終更新: 2026-08-08 20:14 JST
+最終更新: 2026-08-09 17:01 JST
 
 ## 次回の開始地点
 
 1. `git status -sb` と現在ブランチを確認する
-2. 公式 `main`、PR #3、Vercel Productionの最新状態を確認する
+2. 公式 `main`、Draft PR #5、追加導線Vercel Previewの最新状態を確認する
 3. `docs/current_state.md` と `docs/north_star.md` を読む
-4. LUMENを本番へ統合する場合は、`main` とPreviewブランチの差分を再確認する
+4. LUMEN追加導線を本番へ統合する場合は、`main` と `codex/lumen-site-links-preview` の差分を再確認する
 
 NORDLYSはPR #1で公開済み。本番コミットは `3db5129`。
 
@@ -27,7 +27,7 @@ LUMENはNext.jsの静的出力。ソース側で以下を行う。
 
 `basePath` と `assetPrefix` は `/lumen`。WebGLフォントの実URLは `/lumen/lumen/fonts/helvetiker_regular.typeface.json` なので、静的出力内の `lumen/lumen/` を誤って削除しない。
 
-現時点のLUMEN Next.jsソースはローカル側のコミット `7af84ff` にあり、この公開リポジトリには静的出力だけが入っている。
+現時点のLUMEN Next.js追加導線ソースはローカル側の `43ead82`、Preview検証記録は `067d5af` にあり、この公開リポジトリには静的出力だけが入っている。
 
 音響改善のソースコミットは `f252e4d`。実スピーカーの聞こえ方は自動検証できないため人間の試聴を受け入れ条件とし、2026-08-08にのんが最新Previewで起動音とアンビエントが聞こえることを確認済み。
 
@@ -55,4 +55,15 @@ NORDLYSはNext.jsの静的出力。ソース側で以下を行う。
 - 本番画像13点、公式トップからの導線、横方向のはみ出し、ブラウザエラーを2026-08-05に確認済み
 - LUMEN Production deployment: `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4`
 - LUMEN Production URL: `https://nonworks.online/lumen/`
-- LUMENから公式トップへ戻る明示導線は未実装
+- LUMEN追加導線は公式リポ `e9311e4`、Draft PR #5、Vercel deployment `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK` でPreview済み
+- LUMENから公式トップ、他作品、制作相談へ進む導線はPR #5で実装済み。ただし、のんの見た目受け入れ前のため `main` 未統合
+
+## LUMEN 追加導線の受け入れ状況
+
+- ブランチ: `codex/lumen-site-links-preview`
+- Draft PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`
+- Preview: `https://nonworks-git-codex-lumen-site-l-cde76e-kannari-norikos-projects.vercel.app/lumen/`
+- Vercel: READY、GitHub status success
+- 1280×720: Opening、INFO、Information、公式トップ遷移、WebGL canvas 1点、横はみ出し0、ブラウザログ0件
+- 375×812: ヘッダー全操作、INFO実クリック、Information 1カラム、CTA幅335px、横はみ出し0
+- 次の操作: のんがPreviewを確認し、問題なければPRをReady化してSquash merge。本番反映後にProductionを再検証する
