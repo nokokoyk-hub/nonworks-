@@ -1,7 +1,12 @@
 /* LUMEN sound (Web Audio). Always starts OFF; only the toggle button can turn it on.
-   Public API: window.LumenSound = { supported, enabled, toggle(), bounce(size01, strength), pop(),
+   Public API: window.LumenSound = { supported, enabled, toggle(), bounce(size01, strength), boing(), pop(),
    note(i), arpeggio(), stretch(), slide() }.
    - size01 is 0 (smallest shape) .. 1 (biggest shape); the caller normalises, this file knows nothing about shapes.
+   - Two separate rate limits: "hit" (bounce: shapes colliding on their own) and "ui" (everything a person
+     triggers by pressing something). A screen full of collisions must never swallow the sound of a press.
+   - toggle() fires a "lumensound" event on window ({ detail: { on } }); site.js listens to keep the button in sync.
+   - iPhone: audioSession "playback" lets sound through the silent switch. Side effect: music playing in another
+     app may pause or duck while LUMEN's sound is ON (only after the person pressed the button).
    - Every sound function is a no-op while OFF. */
 (() => {
   'use strict';
@@ -118,6 +123,11 @@
       const jitter = Math.floor(Math.random() * 3) - 1;
       const idx = clamp(Math.round((1 - clamp(size01, 0, 1)) * (SCALE.length - 1)) + jitter, 0, SCALE.length - 1);
       pon(SCALE[idx], 0, 0.16 + 0.34 * clamp(strength, 0, 1));
+    },
+    /* the same "pon" as a medium-sized bounce, but pressed by a person (room tile): counted as "ui", not "hit" */
+    boing() {
+      if (!ready() || !allow('ui')) return;
+      pon(SCALE[Math.round((SCALE.length - 1) / 2)], 0, 0.5);
     },
     /* tap to add shapes */
     pop() {

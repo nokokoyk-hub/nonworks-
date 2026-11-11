@@ -1,6 +1,6 @@
 # AI Handoff
 
-最終更新: 2026-11-11 14:50 JST
+最終更新: 2026-11-11 15:40 JST
 
 ## 次回の開始地点
 
@@ -12,6 +12,8 @@
 ## LUMENの更新方法（2026-11-11 から）
 
 **LUMENはこのリポの `lumen/` がそのまま正本。ビルドは無い。ファイルを直接編集する。**
+
+- `docs/digests/2026-08-*` と `docs/changelog-entry-2026-08-*` に出てくるLUMENの手順は、旧版（廃止）のもの。記録として残してあるだけなので、従わない
 
 - 旧手順（別の場所にあるNext.jsソースで `npm run build` → `out/` を `lumen/` へ同期）は**廃止**。やると手書き版が丸ごと上書きされて消える
 - 旧版のNext.jsソース（ローカル側の `43ead82`）は新版に使わない
@@ -38,9 +40,18 @@
 ### 壊しやすい所
 
 - `index.html` の `<head>` にあるインライン1行（`html` に `js` クラスを付け、3秒後に `window.LumenSiteReady` が無ければ外す）と、`site.js` の最後の `window.LumenSiteReady = true`。本文が透明のまま残らないための仕組みなので、片方だけ消さない
-- scriptの順番: `sound.js` は `playground.js`・`site.js` より前（`window.LumenSound` を呼ぶため）
+- scriptの順番: `sound.js` は `site.js` より前に置く。`site.js` は起動した時に `window.LumenSound` があるかを見て、音ボタンを出すか決めるため（`playground.js` は音を鳴らすたびに探すので、順番には左右されない）
 - キャンバスの `touch-action: pan-y` と、`playground.js` の `touchstart`（`passive:false`）の組み合わせ。図形の上だけ `preventDefault` することで、「つかむ」と「ページのスクロール」を両立している
-- 音は300Hz以上にしてある。2026-08-08に、48Hz中心の音が小さいスピーカーで聞こえなかった失敗があるため。「おと ON」の表示は AudioContext が `running` になったのを確認してから
+- 音は300Hz以上にしてある。2026-08-08に、旧LUMENの最初の音（48Hz中心）が小さいスピーカーで聞こえなかった失敗があるため（旧版はその後55Hz＋倍音に直して公開した）。「おと ON」の表示は AudioContext が `running` になったのを確認してから
+- iPhoneのマナーモードでも鳴るように、音をONにする時に `navigator.audioSession.type = 'playback'` を設定している。副作用として、ほかのアプリで流している音楽が止まったり小さくなったりすることがある
+- 音の鳴りすぎ防止は2系統（図形同士がぶつかる音／人が押した時の音）。人が押した時の音は、必ず「押した時の音」側（`sound.js` の `'ui'`）に入れる
+- **ファイルをまたぐ約束**。名前を変える時は両側を直す（片側だけ変えるとエラーも出ずに機能だけ止まる）
+  - `site.js` が付け外しする `html.is-paused` と `lumenmotion` イベント → `playground.js` が読む（「うごき」ボタン）
+  - `sound.js` が出す `lumensound` イベント → `site.js` が受ける（音ボタンの表示）
+  - `site.js` が失敗時に付ける `html.no-menu` → `lumen.css` が読む（メニューが作れなかった時に、ナビのリンクをそのまま見せる）
+  - `playground.js` が探す要素: `#playground`、`#count`、`#spawn-btn`、`#top` の中の `.hero-foot`、`.site-header`
+- 動きを止める対象の一覧は `lumen.css` に2つある（`html.is-paused` 用と `prefers-reduced-motion` 用）。ループするアニメを足したら両方に入れる
+- 「うごき OFF」の間は、図形をつかめないようにしてある（つかめるとスマホでページがスクロールできなくなる）。増やす操作だけは効いて、止まった絵を1回描き直す
 - `lumen/index.html` と `lumen/404.html` は、SVGキャラの部品（`<symbol>`）を同じ内容で持っている。キャラの形を変える時は両方を直す
 - フッターの `Fictional museum / Portfolio demonstration.` と「LUMENは架空の施設です」の注記、チケット欄の「架空のミュージアムです」の注記は消さない
 - ヘッダーの `NON WORKS ↗`（`/`）、「この作品について」の `/#works` と `/#contact` への導線は残す

@@ -1,6 +1,11 @@
 /* LUMEN page behaviour: reveal on scroll, mobile menu, sound + motion buttons, room tiles, ticket confetti.
-   Every block is wrapped in safe(): if one throws, the others (and the readable page) keep working.
-   window.LumenSiteReady is set LAST, so the head fail-safe also catches a script that dies half-way. */
+   Every block is wrapped in safe(): if one throws WHILE SETTING UP, it is logged and the others keep working
+   (errors thrown later, inside event handlers, are not caught here - they surface in the console as usual).
+   Two blocks have a fallback, because a silent failure there would hide the page or strand the reader:
+   reveal -> show everything; menu -> html.no-menu (the plain nav links stay visible on small screens).
+   window.LumenSiteReady is set LAST, so the head fail-safe also catches a script that dies half-way.
+   Contracts with the other files (rename on both sides): html.is-paused + the "lumenmotion" event are read by
+   playground.js; the "lumensound" event comes from sound.js. */
 (() => {
   'use strict';
 
@@ -9,7 +14,12 @@
   const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
   const sound = () => window.LumenSound;
   const reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
-  const safe = (name, fn) => { try { fn(); } catch (err) { console.error('[LUMEN] ' + name + ' failed', err); } };
+  const safe = (name, fn, onFail) => {
+    try { fn(); } catch (err) {
+      console.error('[LUMEN] ' + name + ' failed', err);
+      if (onFail) { try { onFail(); } catch (_) { /* nothing more we can do */ } }
+    }
+  };
   /* old Safari has addListener only */
   const onMq = (mq, fn) => { if (mq.addEventListener) mq.addEventListener('change', fn); else if (mq.addListener) mq.addListener(fn); };
 
@@ -24,13 +34,16 @@
     } else {
       items.forEach((el) => el.classList.add('in'));
     }
+  }, () => {
+    /* the reveal set-up itself broke: never leave the text invisible */
+    $$('.reveal').forEach((el) => el.classList.add('in'));
   });
 
   /* ---------- mobile menu ---------- */
   safe('menu', () => {
     const menu = $('#menu'), menuBtn = $('#menu-btn'), menuClose = $('#menu-close');
     if (!menu || !menuBtn || !menuClose) return;
-    const behind = ['.site-header', '#main', '.site-footer'].map((s) => $(s)).filter(Boolean);
+    const behind = ['.skip', '.site-header', '#main', '.site-footer'].map((s) => $(s)).filter(Boolean);
 
     /* the one place that opens / closes the menu. moveFocus=false when a link is clicked (the page jumps instead) */
     function setMenu(open, moveFocus) {
@@ -46,6 +59,9 @@
     $$('a', menu).forEach((a) => a.addEventListener('click', () => setMenu(false, false)));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setMenu(false, true); });
     onMq(matchMedia('(min-width: 721px)'), (e) => { if (e.matches && !menu.hidden) setMenu(false, false); });
+  }, () => {
+    /* no working menu: lumen.css then shows the plain nav links instead of a dead "メニュー" button */
+    root.classList.add('no-menu');
   });
 
   /* ---------- sound button ---------- */
@@ -89,9 +105,8 @@
 
   /* ---------- room tiles ---------- */
   safe('tiles', () => {
-    /* size01 for bounce: 0 smallest .. 1 biggest shape */
     const roomSound = {
-      1: (s) => s.bounce(0.5, 1),
+      1: (s) => s.boing(),
       2: (s) => s.stretch(),
       3: (s) => s.note(5),
       4: (s) => s.arpeggio(),
@@ -160,7 +175,8 @@
       msg.textContent = '';
       requestAnimationFrame(() => { msg.textContent = MESSAGE; }); /* re-announce on repeat clicks */
       const s = sound(); if (s) s.pop();
-      if (!reduceMq.matches) confetti();
+      /* no falling confetti for people who asked for less motion, in the OS or with the "うごき" button */
+      if (!reduceMq.matches && !root.classList.contains('is-paused')) confetti();
     });
   });
 

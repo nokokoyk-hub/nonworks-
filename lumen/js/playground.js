@@ -2,9 +2,11 @@
    - mouse: press on a shape to grab and throw it, press on empty space to add 5 shapes
    - touch: a touch that starts on a shape grabs it (page does not scroll);
             a touch that starts on empty space scrolls the page, and a short still tap adds shapes
-   - keyboard / assistive tech: the "+5 ふやす" button next to the counter (the canvas itself is decoration)
+   - keyboard / assistive tech: the "＋5こ ふやす" button next to the counter (the canvas itself is decoration)
+   - "うごき OFF" (html.is-paused, set by site.js): the loop stops; shapes cannot be grabbed (so touch always
+     scrolls the page), but tapping / the button still adds shapes and repaints one still frame
    Units: positions are px, velocities are px per 60Hz frame; `dt` is "how many 60Hz frames passed",
-   so everything below behaves the same on 60Hz and 120Hz screens. */
+   so forces and drag behave the same on 60Hz and 120Hz screens (grabFollow is per frame: nearly the same). */
 (() => {
   'use strict';
 
@@ -89,7 +91,8 @@
   const small = () => W < TUNE.smallBelow;
   const rmin = () => (small() ? TUNE.radiusSmall.min : TUNE.radiusLarge.min);
   const floorY = () => H - floorH;
-  const rmax = () => Math.min(small() ? TUNE.radiusSmall.max : TUNE.radiusLarge.max, floorY() / 4);
+  /* never below 4px: a hero squeezed to almost nothing must not produce a negative radius (canvas arc() throws) */
+  const rmax = () => Math.max(4, Math.min(small() ? TUNE.radiusSmall.max : TUNE.radiusLarge.max, floorY() / 4));
   const ceilY = () => Math.min(ceilH, Math.max(0, floorY() - rmax() * 2 - 4));
   const playH = () => floorY() - ceilY();
   /* how many shapes cover `coverage` of the play area (average shape area from the radius range) */
@@ -208,9 +211,11 @@
 
   function spawn(x, y) {
     const k = reduce() ? TUNE.spawnSlowFactor : 1;
+    /* frozen ("うごき OFF"): nothing will push the newcomers apart, so place them in a small circle instead of one point */
+    const spread = paused() ? rmax() * 1.4 : 0;
     for (let i = 0; i < TUNE.spawnCount; i++) {
       const a = i / TUNE.spawnCount * TAU + rnd(0, 1), v = rnd(TUNE.spawnSpeed[0], TUNE.spawnSpeed[1]) * k;
-      const s = make(x, y, Math.cos(a) * v, Math.sin(a) * v, rnd(rmin(), rmax() * 0.8));
+      const s = make(x + Math.cos(a) * spread, y + Math.sin(a) * spread, Math.cos(a) * v, Math.sin(a) * v, rnd(rmin(), rmax() * 0.8));
       s.w = 1;
       confine(s); /* never appear behind the header / hint / button */
       shapes.push(s);
@@ -224,10 +229,14 @@
         s.vx += dx / d * f; s.vy += dy / d * f; s.w = Math.max(s.w, 0.7);
       }
     }
-    rings.push({ x, y, r: 12, a: 1 });
     sayCount();
     const a = snd(); if (a) a.pop();
-    if (paused()) step(0); /* frozen: still show the result once */
+    if (paused()) {
+      /* frozen: no ring (it could never fade), a few passes to untangle overlaps, and one still frame as the result */
+      for (let i = 0; i < 4; i++) step(0);
+    } else {
+      rings.push({ x, y, r: 12, a: 1 });
+    }
   }
 
   function seed() {
@@ -392,13 +401,14 @@
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     try { cv.setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
     ptr.x = x; ptr.y = y; ptr.active = true; ptr.mouse = e.pointerType === 'mouse';
-    if (!grabAt(x, y, 0)) spawn(x, y);
+    if (paused() || !grabAt(x, y, 0)) spawn(x, y); /* frozen: a held shape could not follow, so every press just adds */
   });
 
   /* Decided here because only touchstart can stop the page from scrolling:
      finger on a shape -> grab (no scroll); finger on empty space -> do nothing, the browser scrolls. */
   cv.addEventListener('touchstart', (e) => {
     if (!e.cancelable) return; /* e.g. momentum scrolling is running: leave it alone */
+    if (paused()) return;      /* frozen: never grab, so the finger always scrolls the page (a short tap still adds shapes) */
     if (e.touches.length !== 1 || touch.state === 'grab') return;
     const t = e.changedTouches[0];
     const [x, y] = at(t.clientX, t.clientY);
@@ -465,7 +475,11 @@
   }
   document.addEventListener('visibilitychange', run);
   /* "うごき" button (site.js) toggles html.is-paused and tells us */
-  window.addEventListener('lumenmotion', () => { if (paused()) stop(); else run(); });
+  window.addEventListener('lumenmotion', () => {
+    if (!paused()) { run(); return; }
+    release(); touch.state = 'idle'; touch.id = null; /* let go of a shape held at the moment of freezing */
+    stop();
+  });
 
   let rt = 0;
   function onResize() {

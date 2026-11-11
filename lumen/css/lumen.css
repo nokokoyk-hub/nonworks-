@@ -185,7 +185,8 @@ html:not(.js) .site-header { position: absolute; }
 .hint-count { display: inline-flex; align-items: center; gap: 8px; }
 .mini-btn {
   pointer-events: auto; border: 0; border-radius: 999px; background: var(--ink); color: var(--yellow);
-  padding: 0 .9em; font-weight: 900; font-size: 13px; line-height: 1.7; white-space: nowrap;
+  padding: 0 1em; font-weight: 900; font-size: 13px; line-height: 1.2; white-space: nowrap;
+  display: inline-flex; align-items: center; min-height: 30px; /* big enough for a small finger */
 }
 .marquee {
   align-self: stretch; display: flex; height: 42px; overflow: hidden; background: var(--ink); color: var(--yellow);
@@ -381,13 +382,15 @@ html:not(.js) .site-header { position: absolute; }
 }
 @media (max-width: 720px) {
   .hero { height: 88vh; height: 88svh; }
-  .js .gnav { display: none; }
-  .js .menu-btn { display: inline-block; }
+  /* html.no-menu = site.js could not set the menu up: fall back to the plain nav, exactly like no-JS */
+  .js:not(.no-menu) .gnav { display: none; }
+  .js:not(.no-menu) .menu-btn { display: inline-block; }
   .js .header-right .motion-btn { display: none; } /* on small screens it lives inside the menu */
-  html:not(.js) .site-header { flex-wrap: wrap; border-radius: 26px; padding: 8px 14px; }
-  html:not(.js) .gnav ul { flex-wrap: wrap; }
-  html:not(.js) .gnav a { padding: .2em .7em; font-size: 14px; }
-  html:not(.js) .hero-titles { padding-top: 130px; }
+  html:not(.js) .site-header, html.no-menu .site-header { flex-wrap: wrap; border-radius: 26px; padding: 8px 14px; }
+  html.no-menu .site-header { position: absolute; } /* tall wrapped header must not cover headings (same as no-JS) */
+  html:not(.js) .gnav ul, html.no-menu .gnav ul { flex-wrap: wrap; }
+  html:not(.js) .gnav a, html.no-menu .gnav a { padding: .2em .7em; font-size: 14px; }
+  html:not(.js) .hero-titles, html.no-menu .hero-titles { padding-top: 130px; }
   .site-header { padding-left: 16px; }
   .brand { gap: 8px; }
   .logo { font-size: 18px; }
@@ -396,7 +399,7 @@ html:not(.js) .site-header { position: absolute; }
   .hero-foot { gap: 6px; }
   .hero-foot .btn { font-size: 16px; padding: .55em 1.4em; }
   .hint { font-size: 12.5px; line-height: 1.4; padding: 1px 12px; }
-  .mini-btn { font-size: 12px; line-height: 1.5; }
+  .mini-btn { font-size: 12px; }
 }
 @media (max-width: 640px) {
   .ticket { grid-template-columns: 1fr; transform: none; }
@@ -415,11 +418,16 @@ html:not(.js) .site-header { position: absolute; }
   .nw { display: none; }
 }
 
-/* "うごき OFF" (html.is-paused): same set of loops as reduced-motion, shown in their resting pose */
+/* "うごき OFF" (html.is-paused): same set of loops as reduced-motion, shown in their resting pose.
+   There are TWO lists - this one and the reduced-motion block right below. A new looping animation goes in BOTH. */
 html.is-paused .marquee span, html.is-paused .bob, html.is-paused .hop, html.is-paused .wig, html.is-paused .pin,
 html.is-paused .zz, html.is-paused .dodge-dot, html.is-paused .dodge-ch, html.is-paused .throw-ch,
 html.is-paused .mult, html.is-paused .tap-ring, html.is-paused .tw { animation: none !important; }
 html.is-paused .mult, html.is-paused .zz { opacity: 1; }
+/* pressed room tiles while paused: same still feedback as reduced-motion (colour / eyes / ring, no movement) */
+html.is-paused .tile.is-on .tc { animation: none !important; }
+html.is-paused .t1.is-on .tb, html.is-paused .t2.is-on .tb, html.is-paused .t4.is-on .tb { animation: r-blink .7s steps(2, end) 1; }
+html.is-paused .t4.is-on .ring { animation: ring-still 1.1s linear 1; animation-delay: 0s; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee span, .bob, .hop, .wig, .pin, .zz,
