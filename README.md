@@ -3,7 +3,7 @@
 個人開発の工房「NON WORKS」の公式サイト。
 
 - 本番URL: https://nonworks.online
-- 構成: 公式トップと法務ページは静的HTML、作品ページはNext.jsの静的出力
+- 構成: 公式トップ・法務ページ・LUMENは手書きの静的HTML（ビルド無し）、NORDLYSはNext.jsの静的出力
 - ホスティング: Vercel（`main` への push で自動デプロイ）
 - お問い合わせフォーム: Formspree
 
@@ -15,7 +15,7 @@
 | まなびの木 | https://manabinoki.net/ |
 | soul-backup | https://soul-backup.vercel.app |
 | NORDLYS（架空のポートフォリオ作品） | https://nonworks.online/nordlys/ |
-| LUMEN（架空のデジタルアートミュージアム） | https://nonworks.online/lumen/ |
+| LUMEN（架空の「さわれる光のミュージアム」） | https://nonworks.online/lumen/ |
 
 ## NORDLYS
 
@@ -26,10 +26,11 @@
 
 ## LUMEN
 
-- 配信物: `lumen/`
-- ソース: Next.js 16 / React 19 / Three.js / GSAP
-- ビルド: ソース側で `npm run build` を実行し、生成された `out/` のうちLUMENに必要なファイルを `lumen/` へ配置
-- 公開注記: 架空のデジタルアートミュージアムを題材にしたサンプルサイト
+- 配信物であり正本: `lumen/`（手書きのHTML / CSS / Canvas 2D / Web Audio、ライブラリなし、ビルド無し）
+- 直し方: `lumen/` のファイルを直接編集する。手触りの数値は `lumen/js/playground.js` 先頭の `TUNE`
+- 確認: リポのルートで `python3 -m http.server 8765` → `http://localhost:8765/lumen/`
+- 公開注記: 架空のミュージアムを題材にしたサンプルサイト
+- 旧版（Next.js / Three.js）のビルド手順は廃止。詳しくは `docs/ai_handoff.md`
 
 ## 編集メモ
 
