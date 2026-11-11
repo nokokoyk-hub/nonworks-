@@ -1,37 +1,66 @@
 # AI Handoff
 
-最終更新: 2026-08-09 17:20 JST
+最終更新: 2026-11-11 15:40 JST
 
 ## 次回の開始地点
 
 1. `git status -sb` と現在ブランチを確認する
-2. 公式 `main`、PR #5、最新Vercel Productionの状態を確認する
-3. `docs/current_state.md` と `docs/north_star.md` を読む
-4. LUMENを更新する場合は、`main` と新しい `codex/` 作業ブランチの差分を再確認する
+2. `docs/current_state.md` と `docs/north_star.md` を読む
+3. `codex/lumen-pop-preview` のPR #7 が未マージなら、のんのPreview受け入れ状況を確認する（受け入れ前に `main` へ入れない）
+4. マージ済みなら、本番 `https://nonworks.online/lumen/` と公式トップのLUMENカードを確認し、docsの「Preview段階」の記述を「本番公開済み」に直す
 
-NORDLYSはPR #1で公開済み。本番コミットは `3db5129`。
+## LUMENの更新方法（2026-11-11 から）
 
-LUMENはPR #3で初回公開後、作品説明・公式帰還・制作相談導線をPR #5でSquash mergeし、公式 `main` の `13ff9ea` として本番公開済み。最新Vercel ProductionはREADYで、WebGL、SOUND、INFO、Information、公式トップ帰還、制作相談からお問い合わせ入力欄まで確認した。
+**LUMENはこのリポの `lumen/` がそのまま正本。ビルドは無い。ファイルを直接編集する。**
 
-## LUMENの更新方法
+- `docs/digests/2026-08-*` と `docs/changelog-entry-2026-08-*` に出てくるLUMENの手順は、旧版（廃止）のもの。記録として残してあるだけなので、従わない
 
-LUMENはNext.jsの静的出力。ソース側で以下を行う。
+- 旧手順（別の場所にあるNext.jsソースで `npm run build` → `out/` を `lumen/` へ同期）は**廃止**。やると手書き版が丸ごと上書きされて消える
+- 旧版のNext.jsソース（ローカル側の `43ead82`）は新版に使わない
 
-1. `npm run typecheck`
-2. `npm run lint`
-3. `npm run build`
-4. `out/` からLUMENに必要なファイルをこのリポジトリの `lumen/` へ同期
-5. `lumen/images/nordlys/` は旧NORDLYSの未使用画像なので公開物へ含めない
-6. Vercel Previewの `/lumen/` でデスクトップ、モバイル、INDEX、INFO、SOUND、ブラウザログを確認
-7. 公式トップのLUMENカードから `/lumen/` へ遷移し、SOUND ONがAudioContext running確認後に表示されることを確認
+### どこを直すか
 
-`basePath` と `assetPrefix` は `/lumen`。WebGLフォントの実URLは `/lumen/lumen/fonts/helvetiker_regular.typeface.json` なので、静的出力内の `lumen/lumen/` を誤って削除しない。
+| 直したいもの | 場所 |
+|---|---|
+| 文言、セクションの追加・並び | `lumen/index.html` |
+| 色、書体 | `lumen/css/lumen.css` 先頭の `:root` |
+| レイアウト、アニメ、スマホ表示 | `lumen/css/lumen.css` |
+| 図形の速さ・はね方・数・大きさなどの手触り | `lumen/js/playground.js` 先頭の `TUNE`（1行ずつ日本語コメントあり） |
+| 音の高さ・音量・鳴る頻度 | `lumen/js/sound.js` |
+| メニュー、音ボタン、うごきボタン、へやタイル、紙ふぶき | `lumen/js/site.js` |
 
-現時点のLUMEN Next.js追加導線ソースはローカル側の `43ead82`、Preview検証記録は `067d5af` にあり、この公開リポジトリには静的出力だけが入っている。
+### 確認のしかた
 
-音響改善のソースコミットは `f252e4d`。実スピーカーの聞こえ方は自動検証できないため人間の試聴を受け入れ条件とし、2026-08-08にのんが最新Previewで起動音とアンビエントが聞こえることを確認済み。
+1. リポのルートで `python3 -m http.server 8765` を実行し、`http://localhost:8765/lumen/` を開く（CSS・JSは `/lumen/...` の絶対パスで読むので、必ずリポのルートから配信する）
+2. PC幅（1280×760）とスマホ幅（390×780、タッチあり）で、コンソールの警告・エラー0件、横はみ出し0を確認する
+3. つかんで投げる／空きをタップして増える／スマホで図形の無い所を縦スワイプするとページがスクロールする、を実際に操作する
+4. 公式トップ `http://localhost:8765/` のLUMENカードから `/lumen/` へ行けることを確認する
+5. ブランチをpushしてVercel Previewで見る。**実機のiPhoneと、実際のスピーカーでの音は人が確かめる**（機械では分からない）
 
-初回本番コミット `a73993b` と初回検証済みPreviewのGit tree SHAは一致する。追加導線はPR #5のPreviewを375×812、Productionを1280×720で確認。実機Mobile Safari / Android Chromeは未検証。
+### 壊しやすい所
+
+- `index.html` の `<head>` にあるインライン1行（`html` に `js` クラスを付け、3秒後に `window.LumenSiteReady` が無ければ外す）と、`site.js` の最後の `window.LumenSiteReady = true`。本文が透明のまま残らないための仕組みなので、片方だけ消さない
+- scriptの順番: `sound.js` は `site.js` より前に置く。`site.js` は起動した時に `window.LumenSound` があるかを見て、音ボタンを出すか決めるため（`playground.js` は音を鳴らすたびに探すので、順番には左右されない）
+- キャンバスの `touch-action: pan-y` と、`playground.js` の `touchstart`（`passive:false`）の組み合わせ。図形の上だけ `preventDefault` することで、「つかむ」と「ページのスクロール」を両立している
+- 音は300Hz以上にしてある。2026-08-08に、旧LUMENの最初の音（48Hz中心）が小さいスピーカーで聞こえなかった失敗があるため（旧版はその後55Hz＋倍音に直して公開した）。「おと ON」の表示は AudioContext が `running` になったのを確認してから
+- iPhoneのマナーモードでも鳴るように、音をONにする時に `navigator.audioSession.type = 'playback'` を設定している。副作用として、ほかのアプリで流している音楽が止まったり小さくなったりすることがある
+- 音の鳴りすぎ防止は2系統（図形同士がぶつかる音／人が押した時の音）。人が押した時の音は、必ず「押した時の音」側（`sound.js` の `'ui'`）に入れる
+- **ファイルをまたぐ約束**。名前を変える時は両側を直す（片側だけ変えるとエラーも出ずに機能だけ止まる）
+  - `site.js` が付け外しする `html.is-paused` と `lumenmotion` イベント → `playground.js` が読む（「うごき」ボタン）
+  - `sound.js` が出す `lumensound` イベント → `site.js` が受ける（音ボタンの表示）
+  - `site.js` が失敗時に付ける `html.no-menu` → `lumen.css` が読む（メニューが作れなかった時に、ナビのリンクをそのまま見せる）
+  - `playground.js` が探す要素: `#playground`、`#count`、`#spawn-btn`、`#top` の中の `.hero-foot`、`.site-header`
+- 動きを止める対象の一覧は `lumen.css` に2つある（`html.is-paused` 用と `prefers-reduced-motion` 用）。ループするアニメを足したら両方に入れる
+- 「うごき OFF」の間は、図形をつかめないようにしてある（つかめるとスマホでページがスクロールできなくなる）。増やす操作だけは効いて、止まった絵を1回描き直す
+- `lumen/index.html` と `lumen/404.html` は、SVGキャラの部品（`<symbol>`）を同じ内容で持っている。キャラの形を変える時は両方を直す
+- フッターの `Fictional museum / Portfolio demonstration.` と「LUMENは架空の施設です」の注記、チケット欄の「架空のミュージアムです」の注記は消さない
+- ヘッダーの `NON WORKS ↗`（`/`）、「この作品について」の `/#works` と `/#contact` への導線は残す
+
+### 補足
+
+- 初回実装では、`index.html` を組み立てるための下書きスクリプトを作業用の一時フォルダで使った。リポには入れていない。**今後は `lumen/index.html` を直接編集する**
+- `lumen/robots.txt` と `lumen/404.html` はサブディレクトリにあるため効いていない（詳細は `docs/current_state.md`）
+- VercelのPreviewはログインが必要。のんがスマホ実機で見る時は、共有リンク（約23時間有効）を発行して渡す
 
 ## NORDLYSの更新方法
 
@@ -49,24 +78,7 @@ NORDLYSはNext.jsの静的出力。ソース側で以下を行う。
 
 ## 注意
 
-- NORDLYSは架空施設。フッターの `Fictional property — portfolio demonstration only.` を削除しない
-- 予約フォームはデモで、外部送信処理を追加していない
-- 公式トップのFormspreeフォームや法務ページは今回の変更対象外
-- 本番画像13点、公式トップからの導線、横方向のはみ出し、ブラウザエラーを2026-08-05に確認済み
-- LUMEN Production deployment: `dpl_ZZq6jvRDP7xPJJS9GDDm9dJbCEp4`
-- LUMEN Production URL: `https://nonworks.online/lumen/`
-- LUMEN追加導線は公式リポ `e9311e4`、PR #5、Vercel Preview `dpl_7geat1gRTrcQqvogAxZ3CzXe8xZK` で検証済み
-- のんの受け入れ後にPR #5をReady化・Squash mergeし、`13ff9ea` として本番公開済み
-- Production `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb` はREADY。本番ブラウザログ0件、Vercel直近1時間runtime error 0件
-
-## LUMEN 追加導線の本番状況
-
-- ブランチ: `codex/lumen-site-links-preview`
-- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/5`（Squash merge済み）
-- Preview: `https://nonworks-git-codex-lumen-site-l-cde76e-kannari-norikos-projects.vercel.app/lumen/`
-- Vercel: READY、GitHub status success
-- 1280×720: Opening、INFO、Information、公式トップ遷移、WebGL canvas 1点、横はみ出し0、ブラウザログ0件
-- 375×812: ヘッダー全操作、INFO実クリック、Information 1カラム、CTA幅335px、横はみ出し0
-- 本番コミット: `13ff9ea`
-- Production: `dpl_nXhCGBwnUoLnbR3LUyZGmHzB8beb`、READY、`nonworks.online` alias反映済み
-- 次の候補: 実機Mobile Safari / Android Chrome / reduced-motion / 低GPU端末とLighthouseを追加確認する
+- `main` は本番。変更は `codex/` ブランチで作り、Vercel Previewでのんが受け入れてから統合する
+- ブランチ・commit・pushを報告するときは、リポのルート、ブランチ名、remote、GitHub URL、公開 `main` との関係をセットで示す（2026-08-08の取り違えの教訓）
+- NORDLYSは架空施設。フッターの `Fictional property — portfolio demonstration only.` を削除しない。予約フォームはデモで、外部送信処理は無い
+- 公式トップのFormspreeフォーム、法務ページ、公式トップ本体のデザインは、LUMENの作業では触らない
