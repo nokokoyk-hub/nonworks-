@@ -6,7 +6,7 @@
 
 1. `git status -sb` と現在ブランチを確認する
 2. `docs/current_state.md` と `docs/north_star.md` を読む
-3. `codex/lumen-pop-preview` のPRが未マージなら、のんのPreview受け入れ状況を確認する（受け入れ前に `main` へ入れない）
+3. `codex/lumen-pop-preview` のPR #7 が未マージなら、のんのPreview受け入れ状況を確認する（受け入れ前に `main` へ入れない）
 4. マージ済みなら、本番 `https://nonworks.online/lumen/` と公式トップのLUMENカードを確認し、docsの「Preview段階」の記述を「本番公開済み」に直す
 
 ## LUMENの更新方法（2026-11-11 から）
@@ -48,7 +48,8 @@
 ### 補足
 
 - 初回実装では、`index.html` を組み立てるための下書きスクリプトを作業用の一時フォルダで使った。リポには入れていない。**今後は `lumen/index.html` を直接編集する**
-- `lumen/robots.txt` と `lumen/404.html` はサブディレクトリにあるため効いていない見込み（詳細は `docs/current_state.md`）
+- `lumen/robots.txt` と `lumen/404.html` はサブディレクトリにあるため効いていない（詳細は `docs/current_state.md`）
+- VercelのPreviewはログインが必要。のんがスマホ実機で見る時は、共有リンク（約23時間有効）を発行して渡す
 
 ## NORDLYSの更新方法
 

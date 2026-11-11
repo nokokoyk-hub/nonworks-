@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-11-11 14:50 JST
+最終更新: 2026-11-11 15:00 JST
 
 ## 正本
 
@@ -13,7 +13,9 @@
 
 - 作業ブランチ: `codex/lumen-pop-preview`（`origin/main` の `0777e12` から作成）
 - 状態: 実装・テスト・レビュー済み。**のんのPreview受け入れ待ち**。`main` と本番 `https://nonworks.online/lumen/` は旧LUMENのまま
-- PR / Preview URL: PR作成後にこの欄へ追記する
+- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/7`（Draft）
+- Preview URL: `https://nonworks-git-codex-lumen-pop-preview-kannari-norikos-projects.vercel.app/lumen/`（Vercelのログインが必要。ログイン無しで見るには共有リンクを発行する。発行した共有リンクは約23時間で切れる）
+- 初回Previewデプロイ: `dpl_2FfXCRuUPY5k3w8AP8bJvtJSxRXd`（コミット `7d215c4`、READY）
 - きっかけ: のんの判断「今のLUMENは見る人を選ぶ。躍動感があって誰が見ても楽しいものにしたい」。さわれる試作3案（花火／はねる／ながれる）から **B案「はねる」** を承認（2026-11-11）
 
 ### 新LUMENの中身
@@ -57,18 +59,25 @@
 - 広い画面から狭い画面へのリサイズで、図形が壁の外に出ないこと
 - 公式トップと `/nordlys/` に影響がないこと（差分は `lumen/`、公式トップのLUMENカード、docs、READMEだけ）
 
+### Vercel Previewで確認済み（2026-11-11、1280×760 と 390×780）
+
+- タイトル、H1、図形の数の表示、クリックで15→20に増えること、Google Fonts 2書体の読み込み、横はみ出し0
+- `/lumen`（末尾スラッシュ無し）もリダイレクト無しの200で正しく表示される（CSS・JSを絶対パスにしているため）
+- `/lumen/og.png` が200、公式トップと `/nordlys/` が200、公式トップのLUMENカードから `/lumen/` へ遷移
+- ページ自体のコンソール警告・エラーは0件
+- `/lumen/存在しないURL` はVercel標準の404になる（`lumen/404.html` は使われない。下の「効いていないファイル」のとおり）
+
 ### まだ確かめられていないこと
 
 - **iPhone Safari / Android Chrome の実機**での「つかむ」と「スクロール」の仕分け、慣性スクロール中のタッチ
 - **実際の音の聞こえ方**（機械で確認できたのは、鳴る経路と周波数まで）。iPhoneのマナーモード時の挙動
 - 120Hzの画面での速さ（計算上は60Hzと同じになるようにしてある）
 - 指2本を同時に使った操作
-- Vercel上での `/lumen`（末尾スラッシュ無し）の扱い
 
 ### 効いていないファイル（旧LUMEN・NORDLYSも同じ構造）
 
 - `lumen/robots.txt`: クローラーが読むのはサイト直下の `/robots.txt` だけなので、ここに置いても効かない
-- `lumen/404.html`: 存在しないURLで自動的に表示されるのはサイト直下の `/404.html` だけの見込み。直接開いた時にしか見えない
+- `lumen/404.html`: 存在しないURLで自動的に表示されるのはサイト直下の `/404.html` だけ（Previewで確認済み）。直接開いた時にしか見えない
 - 直すならサイト直下に置く必要があり、公式トップ全体に関わる。別の作業として、のんに確認してから行う
 
 ## 公開中（本番）
