@@ -1,6 +1,6 @@
 # Current State
 
-最終更新: 2026-11-11 15:40 JST
+最終更新: 2026-11-11 15:19 JST
 
 ## 正本
 
@@ -9,13 +9,15 @@
 - ホスティング: Vercel（`main` pushで本番デプロイ、それ以外のブランチpushでPreview）
 - 本番URL: `https://nonworks.online/`
 
-## いま進行中：LUMEN の作り直し（Preview段階・本番は未反映）
+## 最新の公開：LUMEN の作り直し（2026-11-11 本番公開済み）
 
-- 作業ブランチ: `codex/lumen-pop-preview`（`origin/main` の `0777e12` から作成）
-- 状態: 実装・テスト・レビュー済み。**のんのPreview受け入れ待ち**。`main` と本番 `https://nonworks.online/lumen/` は旧LUMENのまま
-- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/7`（Draft）
-- Preview URL: `https://nonworks-git-codex-lumen-pop-preview-kannari-norikos-projects.vercel.app/lumen/`（Vercelのログインが必要。ログイン無しで見るには共有リンクを発行する。発行した共有リンクは約23時間で切れる）
-- 初回Previewデプロイ: `dpl_2FfXCRuUPY5k3w8AP8bJvtJSxRXd`（コミット `7d215c4`、READY）
+- 公開URL: `https://nonworks.online/lumen/`
+- PR: `https://github.com/nokokoyk-hub/nonworks-/pull/7`（2026-11-11にSquash merge済み）
+- 本番コミット: `f5fe872 feat: LUMENを「さわれる光のミュージアム」に作り直し（B案・手書き化） (#7)`
+- Production deployment: `dpl_NmRtArXZEU2wR2t6HEwduWWFBKQq`、READY、`nonworks.online` に反映済み
+- 作業ブランチ: `codex/lumen-pop-preview`（`origin/main` の `0777e12` から作成。3コミットをSquash）
+- 受け入れ: のんがPreviewのリンクを受け取ったうえでマージを指示（2026-11-11）。**iPhone実機の触り心地と音の聞こえ方について、のんの感想はまだ聞けていない**
+- VercelのPreviewはログインが必要。ログイン無し（スマホ実機など）で見せる時は共有リンクを発行する（約23時間で切れる）
 - きっかけ: のんの判断「今のLUMENは見る人を選ぶ。躍動感があって誰が見ても楽しいものにしたい」。さわれる試作3案（花火／はねる／ながれる）から **B案「はねる」** を承認（2026-11-11）
 
 ### 新LUMENの中身
@@ -68,6 +70,15 @@
 - ページ自体のコンソール警告・エラーは0件
 - `/lumen/存在しないURL` はVercel標準の404になる（`lumen/404.html` は使われない。下の「効いていないファイル」のとおり）
 
+### 本番で確認済み（2026-11-11、`https://nonworks.online/`、1280×760 と 390×780）
+
+- `/lumen/` のタイトル、H1、クリックで15→20に増えること、「うごき」「＋5こ ふやす」ボタンの存在、Google Fonts 2書体の読み込み、横はみ出し0、架空施設の注記
+- 「サイト制作について相談する」から公式トップのお問い合わせフォームへ遷移
+- 公式トップのLUMENカード（タグ `Interactive / Playful Experience`、「あそんでみる →」）から `/lumen/` へ遷移
+- `/lumen`（末尾スラッシュ無し）、`/lumen/og.png`、`/nordlys/`、`/tokushoho.html`、`/privacy.html` がすべて200
+- スマホ幅で図形10こ、メニューボタン表示、横はみ出し0
+- コンソールの警告・エラー0件、4xx/5xxの応答0件
+
 ### まだ確かめられていないこと
 
 - **iPhone Safari / Android Chrome の実機**での「つかむ」と「スクロール」の仕分け、慣性スクロール中のタッチ
@@ -85,17 +96,17 @@
 
 - 公式トップ `index.html`、`tokushoho.html`、`privacy.html`: 手書きの静的HTML。お問い合わせはFormspree
 - NORDLYS: `https://nonworks.online/nordlys/`。Next.jsの静的出力。PR #1、本番コミット `3db5129`。架空施設・予約情報を送信しないデモであることを明記
-- LUMEN（旧版）: `https://nonworks.online/lumen/`。Next.js / Three.js の静的出力。PR #3・#5、本番コミット `13ff9ea`。**今回のPRをマージすると新版に置き換わる**
+- LUMEN: `https://nonworks.online/lumen/`。手書き・ビルド無し。PR #7、本番コミット `f5fe872`。架空のミュージアムであることを明記（旧版は PR #3・#5、`13ff9ea` まで）
 
 ## 旧LUMENについて
 
 - 黒地・英語の詩・WebGL（Three.js）・55Hzを芯にした音、という作風だった
-- 新版のマージで退役する。配信物は Git の履歴（`13ff9ea` 時点の `lumen/`）から取り出せる
+- 2026-11-11、新版のマージで退役した。配信物は Git の履歴（`13ff9ea` 時点の `lumen/`）から取り出せる
 - 旧版のNext.jsソースはこのリポに無い（ローカル側の `43ead82`）。**新版には使わない**。旧版の経緯は `docs/digests/2026-08-08-lumen-preview.md` と `2026-08-09-lumen-site-links.md`
 
 ## 次に行うこと
 
-1. のんがPreviewを確認する（特にiPhone実機の触り心地と、音の聞こえ方）
-2. 受け入れ後、PRをReady化して `main` へ統合し、本番 `/lumen/` と公式トップのカードを確認する
-3. マージ後、この文書・`ai_handoff.md`・`north_star.md` の「Preview段階」の記述を「本番公開済み」に直す
-4. NORDLYSから公式トップへ戻る導線、NORDLYSのソースを正本へ移す件は未着手のまま
+1. のんに、iPhone実機の触り心地・音の聞こえ方・図形の量の感想を聞く。直す所があれば `codex/` ブランチで直す（図形の量は `TUNE.coverageStart` / `TUNE.coverageMax`）
+2. サイト直下の `robots.txt` と `404.html` を用意するか、のんに確認する
+3. NORDLYSから公式トップへ戻る導線、NORDLYSのソースを正本へ移す件は未着手のまま
+4. Lighthouse、Android実機、120Hzの画面での確認

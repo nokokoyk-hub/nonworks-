@@ -1,13 +1,13 @@
 # AI Handoff
 
-最終更新: 2026-11-11 15:40 JST
+最終更新: 2026-11-11 15:19 JST
 
 ## 次回の開始地点
 
 1. `git status -sb` と現在ブランチを確認する
 2. `docs/current_state.md` と `docs/north_star.md` を読む
-3. `codex/lumen-pop-preview` のPR #7 が未マージなら、のんのPreview受け入れ状況を確認する（受け入れ前に `main` へ入れない）
-4. マージ済みなら、本番 `https://nonworks.online/lumen/` と公式トップのLUMENカードを確認し、docsの「Preview段階」の記述を「本番公開済み」に直す
+3. 新LUMENは2026-11-11にPR #7で本番公開済み（本番コミット `f5fe872`）。のんの実機での感想（iPhoneの触り心地、音、図形の量）をまだ聞けていなければ、まず聞く
+4. 直す時は `main` から新しい `codex/` ブランチを切り、Vercel Previewでのんが受け入れてから統合する
 
 ## LUMENの更新方法（2026-11-11 から）
 
